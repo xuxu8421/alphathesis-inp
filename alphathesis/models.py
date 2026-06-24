@@ -64,6 +64,10 @@ class KnowledgeBase:
     one_liner_zh: str = ""
     pillars_zh: dict[str, str] = field(default_factory=dict)
     monitorables_zh: list[str] = field(default_factory=list)
+    # Optional per-theme verdict copy keyed by tier ("bullish"|"constructive"|
+    # "balanced"). Keeps the pipeline theme-agnostic: the verdict logic is fixed,
+    # but the wording lives with the data. Falls back to generic text if absent.
+    verdicts: dict[str, dict[str, str]] = field(default_factory=dict)
 
     def pillar_zh(self, name: str) -> str:
         return self.pillars_zh.get(name, name)
@@ -112,4 +116,5 @@ class KnowledgeBase:
             one_liner_zh=raw.get("one_liner_zh", ""),
             pillars_zh=raw.get("pillars_zh", {}),
             monitorables_zh=raw.get("monitorables_zh", []),
+            verdicts=raw.get("verdicts", {}),
         )

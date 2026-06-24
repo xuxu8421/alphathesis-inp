@@ -178,27 +178,43 @@ class Synthesizer:
         n_bear = sum(len(r.claims) for r in rebuttals)
 
         if validation.coverage >= 0.9 and n_bull >= 2 * max(n_bear, 1):
-            verdict = (
-                "Structurally bullish on the InP substrate / optical-interconnect bottleneck. "
-                "The shortage is supply-side, certification-gated and concentrated, and it is "
-                "anchored by hard hyperscaler capex commitments — not a narrative."
-            )
-            verdict_zh = (
-                "对 InP 衬底 / 光互连瓶颈结构性看多。短缺源于供给侧、受认证周期约束且高度集中,"
-                "并由超大规模厂商的硬性资本开支承诺背书——不是讲故事。"
-            )
-            conviction = "High (supply-chain), with timing risk concentrated in CPO ramp and AI-capex durability."
-            conviction_zh = "高(供应链层面),时间风险集中在 CPO 量产节奏与 AI 资本开支的持续性。"
+            tier = "bullish"
+            fb = {
+                "verdict": (
+                    "Structurally bullish on the InP substrate / optical-interconnect bottleneck. "
+                    "The shortage is supply-side, certification-gated and concentrated, and it is "
+                    "anchored by hard hyperscaler capex commitments — not a narrative."
+                ),
+                "verdict_zh": (
+                    "对 InP 衬底 / 光互连瓶颈结构性看多。短缺源于供给侧、受认证周期约束且高度集中,"
+                    "并由超大规模厂商的硬性资本开支承诺背书——不是讲故事。"
+                ),
+                "conviction": "High (supply-chain), with timing risk concentrated in CPO ramp and AI-capex durability.",
+                "conviction_zh": "高(供应链层面),时间风险集中在 CPO 量产节奏与 AI 资本开支的持续性。",
+            }
         elif n_bull > n_bear:
-            verdict = "Constructive but timing-sensitive — own the bottleneck, size for the cyclicality."
-            verdict_zh = "建设性但对时点敏感——拿住瓶颈,按周期性控制仓位。"
-            conviction = "Medium."
-            conviction_zh = "中。"
+            tier = "constructive"
+            fb = {
+                "verdict": "Constructive but timing-sensitive — own the bottleneck, size for the cyclicality.",
+                "verdict_zh": "建设性但对时点敏感——拿住瓶颈,按周期性控制仓位。",
+                "conviction": "Medium.",
+                "conviction_zh": "中。",
+            }
         else:
-            verdict = "Balanced — the bear case on capacity catch-up and capex cyclicality is live."
-            verdict_zh = "中性——产能追赶与资本开支周期性的空头逻辑仍然成立。"
-            conviction = "Low / watch."
-            conviction_zh = "低 / 观察。"
+            tier = "balanced"
+            fb = {
+                "verdict": "Balanced — the bear case on capacity catch-up and capex cyclicality is live.",
+                "verdict_zh": "中性——产能追赶与资本开支周期性的空头逻辑仍然成立。",
+                "conviction": "Low / watch.",
+                "conviction_zh": "低 / 观察。",
+            }
+
+        # Theme-specific copy overrides the generic fallback when provided in the KB.
+        v = kb.verdicts.get(tier, {})
+        verdict = v.get("verdict", fb["verdict"])
+        verdict_zh = v.get("verdict_zh", fb["verdict_zh"])
+        conviction = v.get("conviction", fb["conviction"])
+        conviction_zh = v.get("conviction_zh", fb["conviction_zh"])
 
         return Memo(
             kb=kb,
