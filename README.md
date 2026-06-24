@@ -1,5 +1,9 @@
 # AlphaThesis
 
+[![CI](https://github.com/xuxu8421/alphathesis-inp/actions/workflows/ci.yml/badge.svg)](https://github.com/xuxu8421/alphathesis-inp/actions/workflows/ci.yml)
+&nbsp;![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)
+&nbsp;![citation coverage: 100%](https://img.shields.io/badge/citation%20coverage-100%25-brightgreen.svg)
+
 **A thematic / supply-chain research agent — an extension of [AlphaAnalyst](https://github.com/kbhujbal/AlphaAnalyst-open-source-autonomous-equity-research-agent).**
 
 AlphaAnalyst turns a single stock ticker into an analyst-grade memo using a
