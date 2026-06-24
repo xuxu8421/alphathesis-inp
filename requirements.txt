@@ -1,0 +1,7 @@
+# AlphaThesis core runs on the Python standard library only — no install needed:
+#     python3 -m alphathesis --data data/inp_knowledge.json --out reports
+#
+# Optional extras (only if you wire in a live LLM composer or data fetchers):
+# openai>=1.0          # optional: LLM narrative composer
+# anthropic>=0.30      # optional: Devil's Advocate on a different model family
+# requests>=2.31       # optional: live source fetching (SEC EDGAR / news)
